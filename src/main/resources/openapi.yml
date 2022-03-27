@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: learn21 in API
+  description: learn
+  version: 1.0.0
+  contact:
+    email: mahdi@gmail.com
+    name: mahdi
+servers:
+  - url: http://localhost/v2
+
+paths:
+  /courses/{id}:
+    get:
+      summary: Get a course by ID
+      description: To fetch details of a course
+      operationId: getCourse
+      parameters:
+        - in: path
+          name : id
+          description: Id of Course
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 200 response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Course'
+  /course:
+    post:
+
+      summary: Add a Course
+      operationId: addCourse
+      requestBody:
+        description: Structure of a Course
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Course'
+      responses:
+        "200":
+          description: Course Added
+          content:
+            application/json:
+              schema:
+                type: string
+      x-codegen-request-body-name: course
+components:
+  schemas:
+    Course:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type : string
+        id:
+          type : integer

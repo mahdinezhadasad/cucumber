@@ -1,16 +1,34 @@
 package com.example.cucumber;
 
+import com.example.cucumber.controller.CourseController;
+import com.example.cucumber.entity.CourseEntity;
+import com.example.cucumber.model.Course;
+import com.example.cucumber.repository.CourseRepository;
+import com.example.cucumber.service.CourseService;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.messages.Messages;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
+import javax.validation.constraints.AssertTrue;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 
 public class StepDefsIntegrationTest extends SpringIntegrationTest {
+
+    @Autowired
+    CourseController courseController;
+
+    @Autowired
+    CourseRepository courseRepository;
 
     @When("^the client calls /udacity$")
     public void the_client_issues_POST_hello() throws Throwable {
@@ -36,5 +54,33 @@ public class StepDefsIntegrationTest extends SpringIntegrationTest {
     @And("^the client receives server version (.+)$")
     public void the_client_receives_server_version_body(String version) throws Throwable {
         assertThat(latestResponse.getBody(), is(version));
+    }
+
+    @When(": I am calling this table CourseEntity")
+    public void iAmCallingThisTableCourseEntity() {
+        
+    }
+
+    @Then(": I add value in this ([a-zA-Z0-9-_]+) table:$")
+    public void iAddValueInThisTable( DataTable table) {
+
+        List<List<String>>  list = table.asLists(String.class);
+
+        for( int index =0;index<list.size();index++){
+
+
+            System.out.println(list.get(index).get(0));
+
+        }
+
+
+
+    }
+
+    @When(": then I will get the same data which is upload")
+    public void thenIWillGetTheSameDataWhichIsApload(DataTable table) {
+
+
+        assertThat(table.cell(0,0), Boolean.parseBoolean("leidi"));
     }
 }
