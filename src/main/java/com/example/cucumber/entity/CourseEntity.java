@@ -1,7 +1,10 @@
 package com.example.cucumber.entity;
+import org.springframework.context.annotation.Bean;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 @Entity
+
 public class CourseEntity {
     @Id
     private Integer id;

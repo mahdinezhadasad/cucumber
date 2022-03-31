@@ -30,6 +30,13 @@ public class StepDefsIntegrationTest extends SpringIntegrationTest {
     @Autowired
     CourseRepository courseRepository;
 
+   // @Autowired
+    //CourseEntity course;
+
+    private List<CourseEntity> store;
+
+
+
     @When("^the client calls /udacity$")
     public void the_client_issues_POST_hello() throws Throwable {
         executePost();
@@ -66,18 +73,16 @@ public class StepDefsIntegrationTest extends SpringIntegrationTest {
 
         List<List<String>>  list = table.asLists(String.class);
 
-        for( int index =0;index<list.size();index++){
 
+       // for (List<String> columns : CourseEntity) {
+         //   store.add(new CourseEntity(columns.get(0), columns.get(1),columns.get(2)));
 
-            System.out.println(list.get(index).get(0));
-
-        }
-
+        //}
 
 
     }
 
-    @When(": then I will get the same data which is upload")
+    @When(": then I will get the same data which is upload from endpoint")
     public void thenIWillGetTheSameDataWhichIsApload(DataTable table) {
 
 
