@@ -1,9 +1,8 @@
 package com.example.cucumber.controller;
-
-import com.udacity.api.CourseApi;
-import com.udacity.api.CoursesApi;
+import com.example.cucumber.api.CourseApi;
+import com.example.cucumber.api.CoursesApi;
 import com.example.cucumber.entity.CourseEntity;
-import com.udacity.model.Course;
+import com.example.cucumber.model.Course;
 import com.example.cucumber.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
