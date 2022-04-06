@@ -14,8 +14,10 @@ import io.cucumber.messages.Messages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.AssertTrue;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -63,29 +65,26 @@ public class StepDefsIntegrationTest extends SpringIntegrationTest {
         assertThat(latestResponse.getBody(), is(version));
     }
 
-    @When(": I am calling this table CourseEntity")
-    public void iAmCallingThisTableCourseEntity() {
-        
+    @Given(": the following table")
+    public void courseTable(DataTable table) {
+        List<Map<String, String>> courses = table.asMaps();
+        for (Map<String, String> course : courses) {
+            String cId = course.get("id");
+            String cTitle = course.get("title");
+            String cDescription = course.get("description");
+            assertThat(cId, is("5"));
+            assertThat(cTitle, is("leidi"));
+            assertThat(cDescription, is("how to solve problem"));
+        }
     }
-
-    @Then(": I add value in this ([a-zA-Z0-9-_]+) table:$")
-    public void iAddValueInThisTable( DataTable table) {
-
-        List<List<String>>  list = table.asLists(String.class);
-
-
-       // for (List<String> columns : CourseEntity) {
-         //   store.add(new CourseEntity(columns.get(0), columns.get(1),columns.get(2)));
-
-        //}
-
-
-    }
-
-    @When(": then I will get the same data which is upload from endpoint")
-    public void thenIWillGetTheSameDataWhichIsApload(DataTable table) {
-
-
-        assertThat(table.cell(0,0), Boolean.parseBoolean("leidi"));
+    @Then(": I will get the same data which is upload from endpoint")
+    public void thenIWillGetTheSameDataWhichIsUpload(DataTable table) {
+        List<String> courses = table.asList();
+        String cId = courses.get(0);
+        String cTitle = courses.get(1);
+        String cDescription = courses.get(2);
+        assertThat(cId, is("5"));
+        assertThat(cTitle, is("leidi"));
+        assertThat(cDescription, is("how to solve problem"));
     }
 }
